@@ -21,5 +21,7 @@ class Extract:
         :return: список полученных данных
         """
         curs = await self.execute_query(query)
-        while raws := curs.fetchmany(batch_size):
-            yield raws
+        rows = curs.fetchmany(batch_size)
+        while rows:
+
+            yield rows
