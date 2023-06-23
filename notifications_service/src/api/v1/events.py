@@ -19,9 +19,9 @@ queue_priority = {1: "low", 2: "medium", 3: "high"}
 
 
 @router.post(
-    "/email/{user_id}",
-    summary="Формирование данных для почтового уведомления.",
-    description="Получение шаблона, почты пользователя и приведение данных к общему формату.",
+    "/notification/{user_id}",
+    summary="Формирование данных для уведомления.",
+    description="Получение шаблона, пользователя и приведение данных к общему формату.",
     response_description="Статус обработки данных.",
 )
 @exception_handler
@@ -31,7 +31,7 @@ queue_priority = {1: "low", 2: "medium", 3: "high"}
     max_time=1000,
     max_tries=10,
 )
-async def email_notification(
+async def get_notification(
     event: RequestEventModel,
     user_id: str,
     user_service: UserService = Depends(get_user_service),
@@ -55,7 +55,7 @@ async def email_notification(
         template=notification.template.html,
         user=user.to_dict(),
         data=notification.data,
-        type="email",
+        type=event.type,
     )
 
     await message_service.produce(

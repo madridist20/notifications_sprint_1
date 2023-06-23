@@ -41,7 +41,7 @@ class UserAdmin(admin.ModelAdmin):
                     )
 
                     if obj.notification.schedule.name == "Now":
-                        url = f"http://{settings.fastapi.host}:{settings.fastapi.port}/api/v1/notification/email/{user.id}"
+                        url = f"{settings.fastapi.url}{user.id}"
 
                         data = {
                             "notification_name": obj.notification.name,
@@ -53,19 +53,22 @@ class UserAdmin(admin.ModelAdmin):
                             if response.status_code == 200:
                                 messages.success(
                                     request,
-                                    f"Notification '{obj.notification.name}' was sent successfully to user '{user.name}'.",
+                                    f"Notification '{obj.notification.name}' "
+                                    f"was sent successfully to user '{user.name}'.",
                                 )
                                 user_notification.sent = True
                                 user_notification.save()
                             else:
                                 messages.warning(
                                     request,
-                                    f"Failed to send notification '{obj.notification.name}' to user '{user.name}'.",
+                                    f"Failed to send notification '{obj.notification.name}' "
+                                    f"to user '{user.name}'.",
                                 )
                         except requests.exceptions.RequestException as e:
                             messages.error(
                                 request,
-                                f"An error occurred while sending notification '{obj.notification.name}' to user '{user.name}': {str(e)}",
+                                f"An error occurred while sending notification '{obj.notification.name}' "
+                                f"to user '{user.name}': {str(e)}",
                             )
                         return HttpResponseRedirect(request.path_info)
 

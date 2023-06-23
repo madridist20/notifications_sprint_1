@@ -18,8 +18,8 @@ class DjangoSettings(BaseSettings):
 class FastapiSettings(BaseSettings):
     project_name: str
     secret_key: str
-    host: str
-    port: int
+    url: str
+
 
 
 class PostgresSettings(BaseSettings):

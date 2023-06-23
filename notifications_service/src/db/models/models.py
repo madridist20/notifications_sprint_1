@@ -10,15 +10,15 @@ from db.postgres import Base
 user_characteristic = Table(
     "user_characteristic",
     Base.metadata,
-    Column("user_id", Integer, ForeignKey("user.id")),
-    Column("characteristic_id", Integer, ForeignKey("characteristic.id")),
+    Column("user_id", Integer, ForeignKey("user.id", ondelete="CASCADE")),
+    Column("characteristic_id", Integer, ForeignKey("characteristic.id", ondelete="CASCADE")),
 )
 
 user_notification = Table(
     "user_notification",
     Base.metadata,
-    Column("user_id", Integer, ForeignKey("user.id")),
-    Column("notification_id", Integer, ForeignKey("notification.id")),
+    Column("user_id", Integer, ForeignKey("user.id", ondelete="CASCADE")),
+    Column("notification_id", Integer, ForeignKey("notification.id", ondelete="CASCADE")),
 )
 
 
@@ -47,9 +47,9 @@ class Notification(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
-    schedule_id = Column(Integer, ForeignKey("schedule.id"))
+    schedule_id = Column(Integer, ForeignKey("schedule.id", ondelete="CASCADE"))
     priority = Column(Integer)
-    template_id = Column(Integer, ForeignKey("template.id"))
+    template_id = Column(Integer, ForeignKey("template.id", ondelete="CASCADE"))
     data = Column(JSON)
     schedule = relationship("Schedule", back_populates="notifications")
     template = relationship("Template", back_populates="notifications", lazy="joined")

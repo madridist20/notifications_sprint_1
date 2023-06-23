@@ -13,6 +13,7 @@ class FastapiSettings(BaseSettings):
     secret_key: str
     host: str
     port: int
+    url: str
 
 
 class RabbitMQSettings(BaseSettings):
