@@ -71,13 +71,10 @@ services:
       - rabbitmq
 
   email_server:
-    build:
-      context: ./email_server
-      dockerfile: DockerFile
-    image: email_server:latest
-    container_name: email_server
-    expose:
-      - "25"
+    image: mailhog/mailhog
+    ports:
+      - "25:8025"
+      - "1025:1025"
 
   clickhouse:
     image: yandex/clickhouse-server:21.7.4
