@@ -77,8 +77,6 @@ pydantic==1.8
 pyee==8.2.2
 PyJWT==1.7.1
 pylint==2.16.0
-PyMySQL==1.0.2
-PyMysqlPool==1.0.9
 pyOpenSSL==21.0.0
 pyparsing==3.0.9
 PyPDF2==1.26.0
